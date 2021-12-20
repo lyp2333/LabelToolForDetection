@@ -93,7 +93,7 @@ class CMainWidget(QWidget, cUi):
         if os.path.exists(self.label_file):
             with open(self.label_file, 'r') as f:
                 for line in f:
-                    info = line.strip('\r\n')
+                    info = line.strip('\r\n').strip(' ')
                     if len(info) == 0:
                         continue
                     domains = info.split(' ')
@@ -106,6 +106,7 @@ class CMainWidget(QWidget, cUi):
 
                     if len(domains) > 1:
                         boxes_str = domains[1:]
+                        print(boxes_str)
                         assert (len(boxes_str) % 5 == 0)
                         box_count = int(len(boxes_str) / 5)
                         for i in range(box_count):
