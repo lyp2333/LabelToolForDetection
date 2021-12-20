@@ -182,7 +182,7 @@ class COCOCreater:
         for i, line in enumerate(ori_labels):
             print('trans to coco: %d/%d' % (i + 1, len(ori_labels)))
             self._create_by_line(line.strip('\r\n'), coco_map, img_dst_dir)
-        coco_map["categories"].sort(key=self.get_sortkey(), reverse=False)
+        coco_map["categories"].sort(key=(lambda i: i["id"]), reverse=False)
         print('trans to coco: success')
         # print(self.train_map)
         # print(json.dumps(self.train_map))
@@ -254,10 +254,6 @@ class COCOCreater:
                                         "category_id": cls,
                                         "id": self.box_id
                                         })
-
-    def _get_sortkey(self, input):
-        # input is dict
-        return input["id"]
 
     def _create_dst_struct(self):
         assert (os.path.exists(self.dst_dir))
